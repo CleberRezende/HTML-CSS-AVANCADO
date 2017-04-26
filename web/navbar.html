@@ -1,10 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Nav Design</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+
+    <style>
+        html body {
+            font-family: 'Roboto', sans-serif;
+            background: #fafafa;
+            box-sizing: border-box;
+        }
+
+        ul {
+            font-size: 0;
+            position: relative;
+            padding: 0;
+            max-width: 480px;
+            margin: 60px auto;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16);
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        li {
+            display: inline-block;
+            width: 160px;
+            height: 60px;
+            background: #00BCD4;
+            font-size: 16px;
+            text-align: center;
+            line-height: 60px;
+            color: #FFF;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .slider {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 4px;
+            background: #FFFF98;
+            -webkit-transition: all 0.5s;
+            transition: all 0.5s;
+        }
+
+        /* EFEITO RIPPLE NO BOTÃO*/
+        .ripple {
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            -webkit-transform: scale(0);
+            -ms-transform: scale(0);
+            transform: scale(0);
+            position: absolute;
+            opacity: 1;
+        }
+
+        .rippleBtn{
+            -webkit-animation: rippleDrop .5s linear;
+            animation: rippleDrop .5s linear;
+        }
+
+
+        @-webkit-keyframes rippleDrop {
+            100% {
+                -webkit-transform: scale(2);
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rippleDrop {
+            100% {
+                -webkit-transform: scale(2);
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+    </style>
+
+
 </head>
 <body>
+
+<nav>
+    <ul>
+        <li>HOME</li>
+        <li>SOBRE NÓS</li>
+        <li>CONTATO</li>
+        <li class="slider"></li>
+    </ul>
+</nav>
+
+<script>
+
+    // 1º Capturar a ação do clique
+    $("ul li").click(function (e) {
+        // 2º Adcionar movimento ao slider
+        var referencia = $(this).index();
+
+        // Efeito de deslizamento
+        var slide = 160 * referencia;
+
+        // A nova posição do slider, baseada no balor da anterior
+        $(".slider").css({
+            left: slide + 'px'
+        });
+
+
+        // 3º Efeito Ripple no Botão
+        // Remover os efeitos anteriores do ripple
+        $(".ripple").remove();
+
+        // Configurações
+        var posX = $(this).offset().left;
+        var posY = $(this).offset().top;
+        var buttonWidth = $(this).width();
+        var buttonHeight = $(this).height();
+
+        // Add o elemento
+        $(this).prepend("<span class='ripple'> </span>");
+
+        // Fazendo o efeito ficar dinâmico
+        if(buttonWidth >= buttonHeight){
+            buttonHeight = buttonWidth;
+        }
+        else{
+            buttonWidth = buttonHeight;
+        }
+
+        // Capturar o centro do clique (do elemento)
+        var x = e.pageX - posX -  buttonWidth / 2;
+        var y = e.pageY - posY -  buttonHeight / 2;
+
+        // Add os novos atributos ao efeito ripple
+        $(".ripple").css({
+            width: buttonWidth,
+            height: buttonHeight,
+            top: y + 'px',
+            left: x + 'px'
+        }).addClass("rippleBtn")
+
+
+    });
+
+</script>
+
 
 </body>
 </html>
