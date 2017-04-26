@@ -1,0 +1,18 @@
+CACHE MANIFEST
+#2017-04-06 v1.0.2
+
+CACHE:
+#nomeDoArquivoCss.css
+#nomeDoArquivoJavaScript.js
+style.css
+teste.html
+google.png
+css/testeCss.css
+
+NETWORK:
+#outrasConexoes.html
+#conexoesComServidor.html
+
+FALLBACK:
+#
+teste.html

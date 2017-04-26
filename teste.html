@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br" manifest="meumanifest.appcache">
+<head>
+    <meta charset="UTF-8">
+    <title>teste</title>
+
+
+    <style>
+        html{
+            font-size: 30px;
+        }
+        .abc{
+            position: relative;
+            border: 4px solid red;
+            width: 100px;
+            height: 30px;
+            left: 30px;
+            margin-bottom: 50px;
+        }
+        .abc:hover::before{
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 32px;
+            border-top: 12px solid red;
+            border-right: 45px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 45px solid transparent;
+        }
+
+        .div{
+            left: 0px;
+            top: 100px;
+            margin-right: 50px;
+            position: relative;
+            display: inline-block;
+            width: 200px;
+            height: 200px;
+            border: 4px solid #000;
+            background-color: silver;
+        }
+
+        img{
+            height: 160px;
+            width: 160px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- BEFORE AFTER -->
+<div class="abc">
+    ABC
+</div>
+<!-- BEFORE AFTER -->
+
+
+<!-- DRAG AND DROP -->
+<img src="google.png" alt="Google" draggable="true" ondragstart="dragStart(event)">
+
+<section class="drop-area-container">
+    <div class="div drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+    </div>
+
+    <div class="div drop-area" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+    </div>
+</section>
+<!-- DRAG AND DROP -->
+
+
+<script>
+    function dragStart(event) {
+        event.dataTransfer.setData('text', event.target.id);
+        var a = event.dataTransfer.setData('text', event.target.id);
+        console.log('setData: ', a);
+
+    }
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(event) {
+        var imagemId = event.dataTransfer.getData('text');
+        console.log('getData: ', imagemId);
+        var imagem = document.getElementById(imagemId);
+        event.target.appendChild(imagem);
+    }
+
+    document.cookie = "nome=Cleber";
+
+</script>
+
+</body>
+</html>
